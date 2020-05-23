@@ -6,15 +6,16 @@
   export let maxLength = 20;
 
   const emojisFull = getEmojis();
-  let emojis = [...emojisFull];
+  let emojis = emojisFull;
 
   $: emojisView = emojis.slice(0, maxLength);
 
   const handleInput = e => {
     const { value } = e.target;
-    emojis = value
-      ? emojisFull.filter(e => e.slug.includes(value))
-      : emojisFull;
+    emojis =
+      value
+        ? emojisFull.filter(e => e.slug.includes(value))
+        : emojisFull;
   }
 </script>
 
