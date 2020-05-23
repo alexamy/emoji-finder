@@ -5,7 +5,7 @@
 
   export let maxLength = 20;
 
-  const emojisFull = getEmojis();
+  const emojisFull = [...getEmojis()];
   let emojis = emojisFull;
 
   $: emojisView = emojis.slice(0, maxLength);
