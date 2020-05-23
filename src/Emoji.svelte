@@ -1,8 +1,14 @@
 <script>
+  import copy from './helpers/copyToClipboard';
+
   export let character, slug;
+
+  function handleClick(e) {
+    copy(character);
+  }
 </script>
 
-<div>
+<div on:click={handleClick}>
   <div class="character">{character}</div>
   <div class="slug">{slug}</div>
 </div>
