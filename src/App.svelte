@@ -20,7 +20,11 @@
 
 <main>
   <Input on:input={handleInput} />
-  {#each emojisView as emoji (emoji.codePoint)}
-    <Emoji character={emoji.character} slug={emoji.slug}/>
-  {/each}
+  {#if emojisView.length}
+    {#each emojisView as emoji (emoji.codePoint)}
+      <Emoji character={emoji.character} slug={emoji.slug}/>
+    {/each}
+  {:else}
+    No emojis found.
+  {/if}
 </main>
