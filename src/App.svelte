@@ -1,7 +1,11 @@
 <script>
-	export let name;
+  import getEmojis from './helpers/getEmojis';
+
+  const emojis = getEmojis();
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
+  {#each emojis as emoji (emoji.codePoint)}
+    <p>{emoji.character}</p>
+  {/each}
 </main>
