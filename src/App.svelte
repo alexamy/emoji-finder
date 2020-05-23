@@ -1,4 +1,5 @@
 <script>
+  import Input from './Input.svelte';
   import Emoji from './Emoji.svelte';
   import getEmojis from './helpers/getEmojis';
 
@@ -6,6 +7,7 @@
 </script>
 
 <main>
+  <Input/>
   {#each emojis as emoji (emoji.codePoint)}
     <Emoji character={emoji.character} slug={emoji.slug}/>
   {/each}
