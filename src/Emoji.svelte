@@ -2,13 +2,16 @@
   import copy from './helpers/copyToClipboard';
 
   export let character, slug;
+  let copied = false;
 
   function handleClick(e) {
     copy(character);
+    copied = true;
+    setTimeout(() => (copied = false), 200);
   }
 </script>
 
-<div on:click={handleClick}>
+<div class:copied on:click={handleClick}>
   <div class="character">{character}</div>
   <div class="slug">{slug}</div>
 </div>
@@ -17,6 +20,13 @@
   div {
     display: flex;
     align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 150ms ease-out;
+  }
+
+  div.copied {
+    background: #81ecec;
   }
 
   .character,
