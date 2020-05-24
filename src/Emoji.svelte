@@ -25,6 +25,10 @@
     transition: background 150ms ease-out;
   }
 
+  div:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
   div.copied {
     background: #81ecec;
   }
@@ -37,6 +41,7 @@
   .character {
     font-size: 48px;
     width: 1.5em;
+    font-family: 'Noto Color Emoji';
   }
 
   .slug {
