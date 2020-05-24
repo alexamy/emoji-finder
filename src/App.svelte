@@ -17,6 +17,10 @@
         ? emojisFull.filter(e => e.slug.includes(value))
         : emojisFull;
   }
+
+  const addEmojis = e => {
+    emojisView = emojis.slice(0, emojisView.length + maxLength);
+  }
 </script>
 
 <main>
@@ -27,5 +31,9 @@
     {/each}
   {:else}
     No emojis found.
+  {/if}
+
+  {#if emojisView.length < emojis.length }
+    <button on:click={addEmojis}>Show more</button>
   {/if}
 </main>
