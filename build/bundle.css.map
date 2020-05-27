@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../../App.svelte",
+    "../../Emoji.svelte",
+    "../../Input.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n  import ScrollBottom from './ScrollBottom.svelte';\n  import Input from './Input.svelte';\n  import Emoji from './Emoji.svelte';\n  import getEmojis from './helpers/getEmojis';\n\n  export let maxLength = 20;\n\n  const emojisFull = [...getEmojis()];\n  let emojis = emojisFull;\n\n  $: emojisView = emojis.slice(0, maxLength);\n\n  const handleInput = e => {\n    const { value } = e.target;\n    emojis =\n      value\n        ? emojisFull.filter(e => e.slug.includes(value))\n        : emojisFull;\n    window.scrollTo(0, 0);\n  }\n\n  const addEmojis = e => {\n    emojisView = emojis.slice(0, emojisView.length + maxLength);\n  }\n</script>\n\n<ScrollBottom precision={50} on:scrollToBottom={addEmojis}>\n  <main>\n    <Input on:input={handleInput} />\n    <div class=\"wrapper\">\n      {#if emojisView.length}\n        {#each emojisView as emoji (emoji.codePoint)}\n          <Emoji character={emoji.character} slug={emoji.slug}/>\n        {/each}\n      {:else}\n        No emojis found.\n      {/if}\n    </div>\n\n    {#if emojisView.length < emojis.length }\n      Loading...\n    {/if}\n  </main>\n</ScrollBottom>\n\n<style>\n  .wrapper {\n    margin: 10px 0;\n  }\n</style>\n",
+    "<script>\n  import copy from './helpers/copyToClipboard';\n\n  export let character, slug;\n  let copied = false;\n\n  function handleClick(e) {\n    copy(character);\n    copied = true;\n    setTimeout(() => (copied = false), 200);\n  }\n</script>\n\n<div class:copied on:click={handleClick}>\n  <div class=\"character\">{character}</div>\n  <div class=\"slug\">{slug}</div>\n</div>\n\n<style>\n  div {\n    display: flex;\n    align-items: center;\n    border-radius: 10px;\n    cursor: pointer;\n    transition: background 150ms ease-out;\n  }\n\n  div:not(:last-child) {\n    margin-bottom: 5px;\n  }\n\n  div.copied {\n    background: #81ecec;\n  }\n\n  .character,\n  .slug {\n    display: inline-block;\n  }\n\n  .character {\n    font-size: 48px;\n    width: 1.5em;\n    font-family: 'Noto Color Emoji';\n  }\n\n  .slug {\n    font-size: 24px;\n  }\n\n  .slug:before,\n  .slug:after {\n    content: ':'\n  }\n</style>\n",
+    "<input placeholder=\"Emoji name\" on:input>\n<div></div>\n\n<style>\n  input, div {\n    box-sizing: border-box;\n    font-size: 24px;\n    width: 100%;\n    height: 2.5em;\n  }\n  input {\n    position: fixed;\n  }\n</style>\n"
+  ],
+  "names": [],
+  "mappings": "AA+CE,QAAQ,eAAC,CAAC,AACR,MAAM,CAAE,IAAI,CAAC,CAAC,AAChB,CAAC;AC9BD,GAAG,eAAC,CAAC,AACH,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,aAAa,CAAE,IAAI,CACnB,MAAM,CAAE,OAAO,CACf,UAAU,CAAE,UAAU,CAAC,KAAK,CAAC,QAAQ,AACvC,CAAC,AAED,kBAAG,KAAK,WAAW,CAAC,AAAC,CAAC,AACpB,aAAa,CAAE,GAAG,AACpB,CAAC,AAED,GAAG,OAAO,eAAC,CAAC,AACV,UAAU,CAAE,OAAO,AACrB,CAAC,AAED,yBAAU,CACV,KAAK,eAAC,CAAC,AACL,OAAO,CAAE,YAAY,AACvB,CAAC,AAED,UAAU,eAAC,CAAC,AACV,SAAS,CAAE,IAAI,CACf,KAAK,CAAE,KAAK,CACZ,WAAW,CAAE,kBAAkB,AACjC,CAAC,AAED,KAAK,eAAC,CAAC,AACL,SAAS,CAAE,IAAI,AACjB,CAAC,AAED,oBAAK,OAAO,CACZ,oBAAK,MAAM,AAAC,CAAC,AACX,OAAO,CAAE,GAAG;EACd,CAAC;ACjDD,oBAAK,CAAE,GAAG,eAAC,CAAC,AACV,UAAU,CAAE,UAAU,CACtB,SAAS,CAAE,IAAI,CACf,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,KAAK,AACf,CAAC,AACD,KAAK,eAAC,CAAC,AACL,QAAQ,CAAE,KAAK,AACjB,CAAC"
+}
